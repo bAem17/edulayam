@@ -199,6 +199,9 @@
 </head>
 <body>
 
+  <!-- Audio Element untuk Suara Ambatakam -->
+  <audio id="soundAmbatakam" src="ambatakam.mp3" preload="auto"></audio>
+
   <header>
     <!-- Maskot Ayam & Judul Web -->
     <div class="brand-logo">
@@ -294,7 +297,17 @@
         return;
       }
 
-      alert(`Pesanan Diterima!\n\nID: ${userId} (${zoneId})\nPaket: ${selectedPackage}\nTotal: ${selectedPrice}\n\nSilakan selesaikan pembayaran via QRIS dan simpan bukti transfer!`);
+      // Putar suara Ambatakam
+      const audio = document.getElementById('soundAmbatakam');
+      if (audio) {
+        audio.currentTime = 0; // Reset ke awal jika ditekan berulang
+        audio.play().catch(e => console.log("Audio play blocked by browser:", e));
+      }
+
+      // Tampilkan konfirmasi pesan setelah sedikit jeda
+      setTimeout(() => {
+        alert(`Pesanan Diterima!\n\nID: ${userId} (${zoneId})\nPaket: ${selectedPackage}\nTotal: ${selectedPrice}\n\nSilakan selesaikan pembayaran via QRIS dan simpan bukti transfer!`);
+      }, 300);
     }
   </script>
 
